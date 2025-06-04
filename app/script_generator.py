@@ -41,9 +41,8 @@ def generate_script_package(app_id: str, app_name: str) -> str:
     (output_dir / "uninstall.ps1").write_text(uninstall_script)
     (output_dir / "detection.ps1").write_text(detection_script)
 
-    # Sanitize app_name to create a safe filename (remove spaces, special chars)
+    # Sanitize app_name for filename
     safe_app_name = "".join(c for c in app_name if c.isalnum())
-
     zip_filename = f"{safe_app_name}_package_{datetime.now().strftime('%Y%m%d%H%M%S')}.zip"
     zip_path = output_dir.parent / zip_filename
 
