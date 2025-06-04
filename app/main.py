@@ -1,8 +1,23 @@
 from fastapi import FastAPI, Form
 from fastapi.responses import FileResponse
+from fastapi.middleware.cors import CORSMiddleware
 from app.script_generator import generate_script_package
 
 app = FastAPI()
+
+origins = [
+    "https://winget.gareth.tips",
+    "https://intune.gareth.tips",
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.post("/generate")
 def generate_package(app_id: str = Form(...), app_name: str = Form(...)):
